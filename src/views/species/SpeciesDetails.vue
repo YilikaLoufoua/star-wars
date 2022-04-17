@@ -4,30 +4,30 @@ import api from '@/apis/api.js';
 export default {
   data() {
     return {
-      starship: {},
+      species: {},
     };
   },
   created() {
-    this.getStarshipById();
+    this.getSpeciesById();
   },
   methods: {
-    async getStarshipById() {
-      this.starship = await api.findById('starships', this.$route.params.id); 
+    async getSpeciesById() {
+      this.species = await api.findById('species', this.$route.params.id); 
     },
   },
 };
 </script>
 
 <template>
-  <div class="starship">
+  <div class="species">
     Id: {{ $route.params.id }}
     <hr />
-    Name: {{ starship.name }}
+    Name: {{ species.name }}
   </div>
 </template>
 
 <style lang="scss" scoped>
-.starship {
+.species {
   background-color: #fff;
   div {
     color: #666;

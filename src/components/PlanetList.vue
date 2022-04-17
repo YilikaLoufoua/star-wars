@@ -6,15 +6,15 @@ import { RouterLink } from 'vue-router';
 export default {
   data() {
     return {
-      starships : [],
+      planets: [],
     };
   },
   created() {
-    this.loadStarships ();
+    this.loadPlanets();
   },
   methods: {
-    loadStarships : async function () {
-      this.starships = await api.findAll('starships ');
+    loadPlanets: async function () {
+      this.planets = await api.findAll('planets');
     },
   },
 };
@@ -23,10 +23,10 @@ export default {
 <template>
   <RouterLink
     class="list-item"
-    :to="{ name: 'starship', params: { id: starship.id } }"
-    v-for="starship of starships "
-    :key="starship.id"
-    >{{ starship.name }}</RouterLink
+    :to="{ name: 'planet', params: { id: planet.id } }"
+    v-for="planet of planets"
+    :key="planet.id"
+    >{{ planet.name }}</RouterLink
   >
 </template>
 

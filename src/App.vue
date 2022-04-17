@@ -9,13 +9,14 @@ export default {
   <Navigation class="navigation"></Navigation>
   <div class="main-view">
     <RouterView></RouterView>
-  </div></template>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .navigation {
   margin-bottom: 20px;
 }
-.front-view {
+.main-view {
   background-color: #f3f3f3;
   padding: 20px;
 }

@@ -20,9 +20,12 @@ export default {
 
 <template>
   <div class="film">
-    Id: {{ $route.params.id }}
-    <hr />
-    Description: {{ film.opening_crawl }}
+    <div class="heading">
+    {{ film.title }}
+    </div>
+    <div>
+      Description: {{ film.opening_crawl }}
+    </div>
   </div>
 </template>
 
@@ -30,9 +33,12 @@ export default {
 .film {
   background-color: #fff;
   div {
-    color: #666;
-    font-size: 0.8rem;
-    line-height: 1.6rem;
+    font-size: 1rem;
+    line-height: 2rem;
+    padding: 10px;
+  }
+  .heading {
+    font-size: 2rem;
   }
 }
 </style>

@@ -20,6 +20,21 @@ import { RouterLink } from 'vue-router';
       :class="{ 'router-link-exact-active': $route.path.includes('starships') }">
       Starships
     </RouterLink>
+    <RouterLink
+      :to="{ name: 'species' }"
+      :class="{ 'router-link-exact-active': $route.path.includes('species') }">
+      Species
+    </RouterLink>
+    <RouterLink
+      :to="{ name: 'vehicles' }"
+      :class="{ 'router-link-exact-active': $route.path.includes('vehicles') }">
+      Vehicles
+    </RouterLink>
+    <RouterLink
+      :to="{ name: 'planets' }"
+      :class="{ 'router-link-exact-active': $route.path.includes('planets') }">
+      Planets
+    </RouterLink>
   </div>
 </template>
 

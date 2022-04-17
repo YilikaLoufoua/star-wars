@@ -4,60 +4,60 @@ import api from '@/apis/api.js';
 export default {
   data() {
     return {
-      person: {},
+      vehicle: {},
     };
   },
   created() {
-    this.getPersonById();
+    this.getVehicleById();
   },
   methods: {
-    async getPersonById() {
-      this.person = await api.findById('people', this.$route.params.id);
+    async getVehicleById() {
+      this.vehicle = await api.findById('vehicles', this.$route.params.id);
     },
   },
 };
 </script>
 
 <template>
-  <div class="person">
+  <div class="vehicle">
     <div class="heading">
-    {{ person.name }}
+    {{ vehicle.name }}
     </div>
     <div>
-      Birth Year: {{ person.birth_year}}
+      Birth Year: {{ vehicle.birth_year}}
     </div> 
     <div>
-      Gender: {{ person.gender}}
+      Gender: {{ vehicle.gender}}
     </div> 
     <div>
-      Height: {{ person.height}} cm
+      Height: {{ vehicle.height}} cm
     </div> 
     <div>
-      Mass: {{ person.mass }} Kg
+      Mass: {{ vehicle.mass }} Kg
     </div> 
     <div>
-      Eye Color: {{ person.eye_color}}
+      Eye Color: {{ vehicle.eye_color}}
     </div> 
     <div>
-      Skin Color: {{ person.skin_color}}
+      Skin Color: {{ vehicle.skin_color}}
     </div> 
     <div>
-      Films: {{ person.films}}
+      Films: {{ vehicle.films}}
     </div> 
     <div>
-      Home World: {{ person.homeworld}}
+      Home World: {{ vehicle.homeworld}}
     </div> 
     <div>
-      Star Ships: {{ person.starships}}
+      Star Ships: {{ vehicle.starships}}
     </div> 
     <div>
-      Vehicles: {{ person.vehicles}}
+      Vehicles: {{ vehicle.vehicles}}
     </div> 
   </div>
 </template>
 
 <style lang="scss" scoped>
-.person {
+.vehicle {
   background-color: #fff;
   div {
     font-size: 1rem;

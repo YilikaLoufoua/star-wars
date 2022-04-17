@@ -4,60 +4,60 @@ import api from '@/apis/api.js';
 export default {
   data() {
     return {
-      person: {},
+      planet: {},
     };
   },
   created() {
-    this.getPersonById();
+    this.getPlanetById();
   },
   methods: {
-    async getPersonById() {
-      this.person = await api.findById('people', this.$route.params.id);
+    async getPlanetById() {
+      this.planet = await api.findById('planets', this.$route.params.id);
     },
   },
 };
 </script>
 
 <template>
-  <div class="person">
+  <div class="planet">
     <div class="heading">
-    {{ person.name }}
+    {{ planet.name }}
     </div>
     <div>
-      Birth Year: {{ person.birth_year}}
+      Birth Year: {{ planet.birth_year}}
     </div> 
     <div>
-      Gender: {{ person.gender}}
+      Gender: {{ planet.gender}}
     </div> 
     <div>
-      Height: {{ person.height}} cm
+      Height: {{ planet.height}} cm
     </div> 
     <div>
-      Mass: {{ person.mass }} Kg
+      Mass: {{ planet.mass }} Kg
     </div> 
     <div>
-      Eye Color: {{ person.eye_color}}
+      Eye Color: {{ planet.eye_color}}
     </div> 
     <div>
-      Skin Color: {{ person.skin_color}}
+      Skin Color: {{ planet.skin_color}}
     </div> 
     <div>
-      Films: {{ person.films}}
+      Films: {{ planet.films}}
     </div> 
     <div>
-      Home World: {{ person.homeworld}}
+      Home World: {{ planet.homeworld}}
     </div> 
     <div>
-      Star Ships: {{ person.starships}}
+      Star Ships: {{ planet.starships}}
     </div> 
     <div>
-      Vehicles: {{ person.vehicles}}
+      Planets: {{ planet.planets}}
     </div> 
   </div>
 </template>
 
 <style lang="scss" scoped>
-.person {
+.planet {
   background-color: #fff;
   div {
     font-size: 1rem;
