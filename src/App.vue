@@ -1,9 +1,10 @@
 <script>
 import Navigation from '@/components/Navigation.vue';
-import { RouterView } from "vue-router";
+
 export default {
   components: { Navigation },
-};</script>
+};
+</script>
 
 <template>
   <Navigation class="navigation"></Navigation>

@@ -35,14 +35,12 @@ export default {
       Birth Year: {{ person.birth_year}}
     </div> 
     <div>
-      Gender: {{ person.gender}}
+      Gender: {{ person.gender }}
     </div> 
-    <div>
-      Height: {{ person.height}} cm
-    </div> 
-    <div>
-      Mass: {{ person.mass }} Kg
-    </div> 
+    <div v-if="this.person.height > 0"> Height: {{ person.height }} cm </div> 
+    <div v-else> Height: Unknown </div> 
+    <div v-if="this.person.mass > 0"> Mass: {{ person.mass }} kg </div> 
+    <div v-else> Mass: Unknown </div> 
     <div>
       Eye Color: {{ person.eye_color}}
     </div> 
@@ -51,27 +49,37 @@ export default {
     </div> 
     <div>
       Films:
-      <li v-for="film in person.films">
-        {{ film.title }}
-      </li>
+      <RouterLink
+        class="link-item"
+        :to="{ name: 'film', params: { id: film.url.replace(/[^0-9]/g,'') } }"
+        v-for="film of this.person.films"
+        :key="film.id"
+        >{{ film.title }}</RouterLink>
     </div> 
     <div>
       Home World:
-      <li>
-        {{ person.homeworld.name }}
-      </li>
+      <RouterLink
+        class="link-item"
+        :to="{ name: 'planet', params: { id: this.person.homeworld.url.replace(/[^0-9]/g,'') } }"
+        >{{ this.person.homeworld.name }}</RouterLink>
     </div> 
-    <div>
+    <div v-if="this.person.starships.length > 0">
       Star Ships:
-      <li v-for="starship in person.starships">
-        {{ starship.name }}
-      </li>
+      <RouterLink
+        class="link-item"
+        :to="{ name: 'starship', params: { id: starship.url.replace(/[^0-9]/g,'') } }"
+        v-for="starship of this.person.starships"
+        :key="starship.id"
+        >{{ starship.name }}</RouterLink>
     </div> 
-    <div>
+    <div v-if="this.person.vehicles.length > 0">
       Vehicles:
-      <li v-for="vehicle in person.vehicles">
-        {{ vehicle.name }}
-      </li>
+      <RouterLink
+        class="link-item"
+        :to="{ name: 'vehicle', params: { id: vehicle.url.replace(/[^0-9]/g,'') } }"
+        v-for="vehicle of this.person.vehicles"
+        :key="vehicle.id"
+        >{{ vehicle.name }}</RouterLink>
     </div> 
   </div>
 </template>
@@ -87,5 +95,11 @@ export default {
   .heading {
     font-size: 2rem;
   }
+}
+.link-item {
+  color: black;
+  padding: 5px 10px;
+  margin-left: 20px;
+  display: list-item;
 }
 </style>

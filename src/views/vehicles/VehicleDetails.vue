@@ -4,54 +4,76 @@ import api from '@/apis/api.js';
 export default {
   data() {
     return {
+      loading: false,
       vehicle: {},
     };
   },
   created() {
-    this.getVehicleById();
+    this.loading = true;
+    this.getVehicleDetails();
   },
   methods: {
-    async getVehicleById() {
+    async getVehicleDetails() {
       this.vehicle = await api.findById('vehicles', this.$route.params.id);
+      this.vehicle.films = await api.fetchList(this.vehicle.films);
+      this.vehicle.pilots = await api.fetchList(this.vehicle.pilots);
+      console.log(this.vehicle);
+      this.loading = false;
     },
   },
 };
 </script>
 
 <template>
-  <div class="vehicle">
+  <div v-if="loading" class="loading">Loading...</div>
+  <div v-if="!loading" class="vehicle">
     <div class="heading">
     {{ vehicle.name }}
     </div>
     <div>
-      Birth Year: {{ vehicle.birth_year}}
-    </div> 
+      Class: {{ vehicle.vehicle_class }}
+    </div>
     <div>
-      Gender: {{ vehicle.gender}}
-    </div> 
+      Manufacturer: {{ vehicle.manufacturer }}
+    </div>
     <div>
-      Height: {{ vehicle.height}} cm
-    </div> 
+      Cost (In Galactic Credits): {{ vehicle.cost_in_credits }}
+    </div>
     <div>
-      Mass: {{ vehicle.mass }} Kg
-    </div> 
+      Length: {{ vehicle.length }} m
+    </div>
     <div>
-      Eye Color: {{ vehicle.eye_color}}
-    </div> 
+      Maximum Speed In The Atmosphere: {{ vehicle.max_atmosphering_speed }} km/hr
+    </div>
     <div>
-      Skin Color: {{ vehicle.skin_color}}
-    </div> 
+      Crews: {{ vehicle.crew }}
+    </div>
+    <div v-if="vehicle.passengers > 0">
+      Passengers: {{ vehicle.passengers }} 
+    </div>
     <div>
-      Films: {{ vehicle.films}}
-    </div> 
+      Cargo Capacity: {{ vehicle.cargo_capacity }} kg
+    </div>
     <div>
-      Home World: {{ vehicle.homeworld}}
-    </div> 
+      Maximum Length of Time Without Resupplying: {{ vehicle.consumables }} 
+    </div>
+    <div v-if="this.vehicle.pilots.length > 0">
+      Pilots:
+      <RouterLink
+        class="link-item"
+        :to="{ name: 'person', params: { id: pilot.url.replace(/[^0-9]/g,'') } }"
+        v-for="pilot of this.vehicle.pilots"
+        :key="pilot.id"
+        >{{ pilot.name }}</RouterLink>
+    </div>
     <div>
-      Star Ships: {{ vehicle.starships}}
-    </div> 
-    <div>
-      Vehicles: {{ vehicle.vehicles}}
+      Films:
+      <RouterLink
+        class="link-item"
+        :to="{ name: 'film', params: { id: film.url.replace(/[^0-9]/g,'') } }"
+        v-for="film of this.vehicle.films"
+        :key="film.id"
+        >{{ film.title }}</RouterLink>
     </div> 
   </div>
 </template>
@@ -62,10 +84,16 @@ export default {
   div {
     font-size: 1rem;
     line-height: 2rem;
-    padding: 10px;
+    padding: 10px 30px;
   }
   .heading {
     font-size: 2rem;
   }
+}
+.link-item {
+  color: black;
+  padding: 5px 10px;
+  margin-left: 20px;
+  display: list-item;
 }
 </style>

@@ -4,54 +4,72 @@ import api from '@/apis/api.js';
 export default {
   data() {
     return {
+      loading: false,
       planet: {},
     };
   },
   created() {
-    this.getPlanetById();
+    this.loading = true;
+    this.getPlanetDetails();
   },
   methods: {
-    async getPlanetById() {
+    async getPlanetDetails() {
       this.planet = await api.findById('planets', this.$route.params.id);
+      this.planet.residents = await api.fetchList(this.planet.residents);
+      this.planet.films = await api.fetchList(this.planet.films);
+      this.loading = false;
     },
   },
 };
 </script>
 
 <template>
-  <div class="planet">
+  <div v-if="loading" class="loading">Loading...</div>
+  <div v-if="!loading" class="planet">
     <div class="heading">
     {{ planet.name }}
     </div>
     <div>
-      Birth Year: {{ planet.birth_year}}
+      Popolation of Sentient Beings: {{ planet.population}}
     </div> 
     <div>
-      Gender: {{ planet.gender}}
+      Diameter: {{ planet.diameter}} km
     </div> 
     <div>
-      Height: {{ planet.height}} cm
+      Rotation Period: {{ planet.rotation_period}} hours
     </div> 
     <div>
-      Mass: {{ planet.mass }} Kg
+      Orbital Period: {{ planet.orbital_period }} days
     </div> 
     <div>
-      Eye Color: {{ planet.eye_color}}
+      Gravity: {{ planet.gravity}}
     </div> 
     <div>
-      Skin Color: {{ planet.skin_color}}
+      Climate: {{ planet.climate}}
     </div> 
     <div>
-      Films: {{ planet.films}}
+      Terrain: {{ planet.terrain}}
     </div> 
     <div>
-      Home World: {{ planet.homeworld}}
+      Percentage of surface covered by water: {{ planet.surface_water }} %
     </div> 
     <div>
-      Star Ships: {{ planet.starships}}
+      Residents:
+      <RouterLink
+        class="link-item"
+        :to="{ name: 'person', params: { id: resident.url.replace(/[^0-9]/g,'') } }"
+        v-for="resident of this.planet.residents"
+        :key="resident.id"
+        >{{ resident.name }}</RouterLink>
     </div> 
-    <div>
-      Planets: {{ planet.planets}}
+    <div v-if="this.planet.films.length > 0">
+      Films:
+      <RouterLink
+        class="link-item"
+        :to="{ name: 'film', params: { id: film.url.replace(/[^0-9]/g,'') } }"
+        v-for="film of this.planet.films"
+        :key="film.id"
+        >{{ film.title }}</RouterLink>
     </div> 
   </div>
 </template>
@@ -67,5 +85,11 @@ export default {
   .heading {
     font-size: 2rem;
   }
+}
+.link-item {
+  color: black;
+  padding: 5px 10px;
+  margin-left: 20px;
+  display: list-item;
 }
 </style>
