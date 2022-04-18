@@ -15,7 +15,6 @@ export default {
   methods: {
     loadSpecies: async function () {
       this.specieslist = await api.findAll('species');
-      console.log(this.species);
     },
   },
 };
