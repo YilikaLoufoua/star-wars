@@ -2,32 +2,66 @@
 import api from '@/apis/api.js';
 import { toHandlers } from 'vue';
 import { RouterLink } from 'vue-router';
+import Pagination from '@/components/Pagination.vue';
 
 export default {
+  components: { 
+    Pagination 
+  },
   data() {
     return {
+      response: null,
+      nextPage: null,
+      previousPage: null,
+      hasNextPage: false,
+      hasPreviousPage: false,
+      loading: false,
       vehicles: [],
     };
   },
   created() {
-    this.loadVehicles();
+    this.loadData();
   },
   methods: {
-    loadVehicles: async function () {
-      this.vehicles = await api.findAll('vehicles');
+    loadData: async function () {
+      this.loading = true;
+      this.response = await api.findAll('vehicles');
+      this.vehicles = this.response.results;
+      this.nextPage = this.response.next;
+      this.previousPage = this.response.previous;
+      this.hasNextPage = this.nextPage ? true : false;
+      this.hasPreviousPage = this.previousPage ? true : false;
+      this.loading = false;
     },
-  },
+    loadPage: async function (page) {
+      if (page) {
+        this.response = await api.fetchPage(page);
+        this.vehicles = this.response.results;
+        this.nextPage = this.response.next;
+        this.previousPage = this.response.previous;
+        this.hasNextPage = this.nextPage ? true : false;
+        this.hasPreviousPage = this.previousPage ? true : false;
+      }
+    }
+  }
 };
 </script>
 
 <template>
+  <div v-if="loading">Loading...</div>
+  <div v-if="!loading">
   <RouterLink
     class="list-item"
     :to="{ name: 'vehicle', params: { id: vehicle.id } }"
     v-for="vehicle of vehicles"
     :key="vehicle.id"
-    >{{ vehicle.name }}</RouterLink
-  >
+    >{{ vehicle.name }}</RouterLink>
+  <Pagination
+    :hasNextPage=this.hasNextPage 
+    :hasPreviousPage=this.hasPreviousPage
+    @loadNextPage="loadPage(this.nextPage)"
+    @loadPreviousPage="loadPage(this.previousPage)"></Pagination>
+  </div>
 </template>
 
 <style lang="scss" scoped>

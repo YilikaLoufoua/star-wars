@@ -6,28 +6,53 @@ import { RouterLink } from 'vue-router';
 export default {
   data() {
     return {
-      films: [],
+      response: null,
+      nextPage: null,
+      previousPage: null,
+      hasNextPage: false,
+      hasPreviousPage: false,
+      loading: false,
+      films: []
     };
   },
   created() {
-    this.loadFilms();
+    this.loadData();
   },
   methods: {
-    loadFilms: async function () {
-      this.films = await api.findAll('films');
+    loadData: async function () {
+      this.loading = true;
+      this.response = await api.findAll('films');
+      this.films = this.response.results;
+      this.nextPage = this.response.next;
+      this.previousPage = this.response.previous;
+      this.hasNextPage = this.nextPage ? true : false;
+      this.hasPreviousPage = this.previousPage ? true : false;
+      this.loading = false;
     },
-  },
+    loadPage: async function (page) {
+      if (page) {
+        this.response = await api.fetchPage(page);
+        this.people = this.response.results;
+        this.nextPage = this.response.next;
+        this.previousPage = this.response.previous;
+        this.hasNextPage = this.nextPage ? true : false;
+        this.hasPreviousPage = this.previousPage ? true : false;
+      }
+    }
+  }
 };
 </script>
 
 <template>
+  <div v-if="loading">Loading...</div>
+  <div v-if="!loading">
   <RouterLink
     class="list-item"
     :to="{ name: 'film', params: { id: film.id } }"
     v-for="film of films"
     :key="film.id"
-    >{{ film.title }}</RouterLink
-  >
+    >{{ film.title }}</RouterLink>
+  </div>
 </template>
 
 <style lang="scss" scoped>

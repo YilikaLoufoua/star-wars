@@ -9,11 +9,11 @@ export default {
     };
   },
   created() {
-    this.loading = true;
     this.getPersonDetails();
   },
   methods: {
     async getPersonDetails() {
+      this.loading = true;
       this.person = await api.findById('people', this.$route.params.id);
       this.person.homeworld = await fetch(this.person.homeworld).then((response) => response.json());
       this.person.films = await api.fetchList(this.person.films);
@@ -31,24 +31,15 @@ export default {
     <div class="heading">
     {{ person.name }}
     </div>
-    <div>
-      Birth Year: {{ person.birth_year}}
-    </div> 
-    <div>
-      Gender: {{ person.gender }}
-    </div> 
+    <div> Birth Year: {{ person.birth_year}} </div> 
+    <div> Gender: {{ person.gender }} </div> 
     <div v-if="this.person.height > 0"> Height: {{ person.height }} cm </div> 
     <div v-else> Height: Unknown </div> 
     <div v-if="this.person.mass > 0"> Mass: {{ person.mass }} kg </div> 
     <div v-else> Mass: Unknown </div> 
-    <div>
-      Eye Color: {{ person.eye_color}}
-    </div> 
-    <div>
-      Skin Color: {{ person.skin_color}}
-    </div> 
-    <div>
-      Films:
+    <div> Eye Color: {{ person.eye_color}} </div> 
+    <div>mSkin Color: {{ person.skin_color}} </div> 
+    <div> Films:
       <RouterLink
         class="link-item"
         :to="{ name: 'film', params: { id: film.url.replace(/[^0-9]/g,'') } }"
@@ -56,15 +47,13 @@ export default {
         :key="film.id"
         >{{ film.title }}</RouterLink>
     </div> 
-    <div>
-      Home World:
+    <div> Home World:
       <RouterLink
         class="link-item"
         :to="{ name: 'planet', params: { id: this.person.homeworld.url.replace(/[^0-9]/g,'') } }"
         >{{ this.person.homeworld.name }}</RouterLink>
     </div> 
-    <div v-if="this.person.starships.length > 0">
-      Star Ships:
+    <div v-if="this.person.starships.length > 0"> Star Ships:
       <RouterLink
         class="link-item"
         :to="{ name: 'starship', params: { id: starship.url.replace(/[^0-9]/g,'') } }"
@@ -72,8 +61,7 @@ export default {
         :key="starship.id"
         >{{ starship.name }}</RouterLink>
     </div> 
-    <div v-if="this.person.vehicles.length > 0">
-      Vehicles:
+    <div v-if="this.person.vehicles.length > 0"> Vehicles:
       <RouterLink
         class="link-item"
         :to="{ name: 'vehicle', params: { id: vehicle.url.replace(/[^0-9]/g,'') } }"

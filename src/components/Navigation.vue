@@ -6,14 +6,14 @@ import { RouterLink } from 'vue-router';
   <div class="navigation">
     <RouterLink :to="{ name: 'home' }">Home</RouterLink>
     <RouterLink
-      :to="{ name: 'people' }"
-      :class="{ 'router-link-exact-active': $route.path.includes('people') }">
-      People
-    </RouterLink>
-    <RouterLink
       :to="{ name: 'films' }"
       :class="{ 'router-link-exact-active': $route.path.includes('films') }">
       Films
+    </RouterLink>
+    <RouterLink
+      :to="{ name: 'people' }"
+      :class="{ 'router-link-exact-active': $route.path.includes('people') }">
+      People
     </RouterLink>
     <RouterLink
       :to="{ name: 'starships' }"
