@@ -25,72 +25,68 @@ import NotFound from '@/views/common/NotFound.vue';
 const router = createRouter({
   history: createWebHistory(), 
   routes: [
-    { path: '/', name: 'home', component: Home },
+    { path: '/star-wars-wiki/', name: 'home', component: Home },
     {
-      path: '/people',
+      path: '/star-wars-wiki/people',
       name: 'people',
       component: People,
     },
     {
-      path: '/people/:id',
+      path: '/star-wars-wiki/people/:id',
       name: 'person',
       component: PersonDetails,
     },
     {
-      path: '/films',
+      path: '/star-wars-wiki/films',
       name: 'films',
       component: Films,
     },
     {
-      path: '/films/:id',
+      path: '/star-wars-wiki/films/:id',
       name: 'film',
       component: FilmDetails,
     },
     {
-      path: '/starships',
+      path: '/star-wars-wiki/starships',
       name: 'starships',
       component: Starships,
     },
     {
-      path: '/starships/:id',
+      path: '/star-wars-wiki/starships/:id',
       name: 'starship',
       component: StarshipDetails,
     },
     {
-      path: '/species',
+      path: '/star-wars-wiki/species',
       name: 'species',
       component: Species,
     },
     {
-      path: '/species/:id',
+      path: '/star-wars-wiki/species/:id',
       name: 'specie',
       component: SpeciesDetails,
     },
     {
-      path: '/vehicles',
+      path: '/star-wars-wiki/vehicles',
       name: 'vehicles',
       component: Vehicles,
     },
     {
-      path: '/vehicles/:id',
+      path: '/star-wars-wiki/vehicles/:id',
       name: 'vehicle',
       component: VehicleDetails,
     },
     {
-      path: '/planets',
+      path: '/star-wars-wiki/planets',
       name: 'planets',
       component: Planets,
     },
     {
-      path: '/planets/:id',
+      path: '/star-wars-wiki/planets/:id',
       name: 'planet',
       component: PlanetDetails,
     },
-    {
-      path: '/:pathMatch(.*)', 
-      component: NotFound,
-    },
-  ],
+  ]
 });
 
 export default router;

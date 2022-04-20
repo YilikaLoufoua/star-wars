@@ -16,16 +16,16 @@ export default {
 
 <style lang="scss" scoped>
 .navigation {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .main-view {
   background-color: #212529;
-  padding: 20px;
+  padding: 10px;
 }
 .logo {
   width: 225px;
-  height: 100px;
-  line-height: 100px;
+  height: 70px;
+  line-height: 70px;
   text-align: center;
   align-content: center;
   font-size: calc(3vw + 3vh);
