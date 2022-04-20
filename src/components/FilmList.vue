@@ -44,7 +44,7 @@ export default {
 </script>
 
 <template>
-  <div v-if="loading">Loading...</div>
+  <div class="loading" v-if="loading">Loading...</div>
   <div v-if="!loading">
   <RouterLink
     class="list-item"
@@ -57,10 +57,14 @@ export default {
 
 <style lang="scss" scoped>
 .list-item {
-  background-color: #16a085;
-  color: #fff;
+  font-size: large;
+  background-color: black;
+  color: #FFE300;
   padding: 5px 10px;
   margin-bottom: 10px;
   display: block;
+}
+.loading {
+  color: #FFE300;
 }
 </style>

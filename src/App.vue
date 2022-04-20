@@ -7,6 +7,7 @@ export default {
 </script>
 
 <template>
+  <div class="logo">SWIKI</div>
   <Navigation class="navigation"></Navigation>
   <div class="main-view">
     <RouterView></RouterView>
@@ -18,7 +19,18 @@ export default {
   margin-bottom: 20px;
 }
 .main-view {
-  background-color: #f3f3f3;
+  background-color: #212529;
   padding: 20px;
+}
+.logo {
+  width: 225px;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  align-content: center;
+  font-size: calc(3vw + 3vh);
+  color: #FFE300;
+  background-color: black;
+  margin: 20px 0;
 }
 </style>

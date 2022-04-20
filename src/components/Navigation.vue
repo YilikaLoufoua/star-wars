@@ -41,10 +41,11 @@ import { RouterLink } from 'vue-router';
 <style lang="scss" scoped>
 .navigation {
   a {
-    background-color: #fff; // inactive route-lin is white
+    font-size: large;
+    background-color: black; 
     text-decoration: none;
     padding: 5px 10px;
-    color: #333;
+    color: #FFE300;
     font-weight: bold;
   }
 }

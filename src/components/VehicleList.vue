@@ -42,20 +42,23 @@ export default {
         this.hasNextPage = this.nextPage ? true : false;
         this.hasPreviousPage = this.previousPage ? true : false;
       }
+    },
+    toTitleCase(str) {
+      return str.split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
     }
   }
 };
 </script>
 
 <template>
-  <div v-if="loading">Loading...</div>
+  <div class="loading" v-if="loading">Loading...</div>
   <div v-if="!loading">
   <RouterLink
     class="list-item"
     :to="{ name: 'vehicle', params: { id: vehicle.id } }"
     v-for="vehicle of vehicles"
     :key="vehicle.id"
-    >{{ vehicle.name }}</RouterLink>
+    >{{ toTitleCase(vehicle.name) }}</RouterLink>
   <Pagination
     :hasNextPage=this.hasNextPage 
     :hasPreviousPage=this.hasPreviousPage
@@ -66,10 +69,14 @@ export default {
 
 <style lang="scss" scoped>
 .list-item {
-  background-color: #16a085;
-  color: #fff;
+  font-size: large;
+  background-color: black;
+  color: #FFE300;
   padding: 5px 10px;
   margin-bottom: 10px;
   display: block;
+}
+.loading {
+  color: #FFE300;
 }
 </style>

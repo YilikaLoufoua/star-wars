@@ -19,51 +19,36 @@ export default {
       this.planet.films = await api.fetchList(this.planet.films);
       this.loading = false;
     },
-  },
+    toTitleCase(str) {
+      return str.split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
+    }
+  }
 };
 </script>
 
 <template>
   <div v-if="loading" class="loading">Loading...</div>
   <div v-if="!loading" class="planet">
-    <div class="heading">
-    {{ planet.name }}
-    </div>
-    <div>
-      Popolation of Sentient Beings: {{ planet.population}}
-    </div> 
-    <div>
-      Diameter: {{ planet.diameter}} km
-    </div> 
-    <div>
-      Rotation Period: {{ planet.rotation_period}} hours
-    </div> 
-    <div>
-      Orbital Period: {{ planet.orbital_period }} days
-    </div> 
-    <div>
-      Gravity: {{ planet.gravity}}
-    </div> 
-    <div>
-      Climate: {{ planet.climate}}
-    </div> 
-    <div>
-      Terrain: {{ planet.terrain}}
-    </div> 
-    <div>
-      Percentage of surface covered by water: {{ planet.surface_water }} %
-    </div> 
-    <div>
-      Residents:
+    <p class="h2 pl-4 pt-4"> {{ planet.name }} </p>
+    <hr color="white">
+    <div class="info">
+      <p> Popolation of Sentient Beings: {{ planet.population}} </p> 
+      <p v-if="planet.diameter > 0"> Diameter: {{ planet.diameter}} km </p> 
+      <p v-else> Diameter: less than 1 km </p> 
+      <p> Rotation Period: {{ planet.rotation_period}} hours</p> 
+      <p> Orbital Period: {{ planet.orbital_period }} days </p> 
+      <p> Gravity: {{ planet.gravity}} </p> 
+      <p> Climate: {{ toTitleCase(planet.climate)}} </p> 
+      <p> Terrain: {{ toTitleCase(planet.terrain)}} </p> 
+      <p> Percentage of surface covered by water: {{ planet.surface_water }} % </p> 
+      <p class="h4 py-2" v-if="this.planet.residents.length"> Residents </p>
       <RouterLink
         class="link-item"
         :to="{ name: 'person', params: { id: resident.url.replace(/[^0-9]/g,'') } }"
         v-for="resident of this.planet.residents"
         :key="resident.id"
         >{{ resident.name }}</RouterLink>
-    </div> 
-    <div v-if="this.planet.films.length > 0">
-      Films:
+      <p class="h4 pt-3 pb-2" v-if="this.planet.films.length > 0"> Films </p>
       <RouterLink
         class="link-item"
         :to="{ name: 'film', params: { id: film.url.replace(/[^0-9]/g,'') } }"
@@ -76,20 +61,20 @@ export default {
 
 <style lang="scss" scoped>
 .planet {
-  background-color: #fff;
-  div {
+  background-color: #212529;
+  color: #FFE300;
+  .info {
     font-size: 1rem;
-    line-height: 2rem;
-    padding: 10px;
-  }
-  .heading {
-    font-size: 2rem;
+    padding: 1rem 2rem;
   }
 }
 .link-item {
-  color: black;
+  color: #FFE300;
   padding: 5px 10px;
   margin-left: 20px;
   display: list-item;
+}
+.loading {
+  color: #FFE300;
 }
 </style>

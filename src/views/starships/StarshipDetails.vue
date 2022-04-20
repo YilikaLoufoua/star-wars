@@ -19,6 +19,9 @@ export default {
       this.starship.pilots = await api.fetchList(this.starship.pilots);
       this.loading = false;
     },
+    toTitleCase(str) {
+      return str.split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
+    }
   },
 };
 </script>
@@ -26,82 +29,55 @@ export default {
 <template>
   <div v-if="loading" class="loading">Loading...</div>
   <div v-if="!loading" class="starship">
-    <div class="heading">
-    {{ starship.name }}
-    </div>
-    <div>
-      Model: {{ starship.model }}
-    </div>
-    <div>
-      Class: {{ starship.starship_class }}
-    </div>
-    <div>
-      Manufacturer: {{ starship.manufacturer }}
-    </div>
-    <div>
-      Cost (In Galactic Credits): {{ starship.cost_in_credits }}
-    </div>
-    <div>
-      Hyperdrive Rating: {{ starship.hyperdrive_rating }}
-    </div>
-    <div>
-      Maximum Number of Megalights This Starship Can Travel In A Standard Hour: {{ starship.MGLT }}
-    </div>
-    <div>
-      Length: {{ starship.length }} m
-    </div>
-    <div>
-      Maximum Speed In The Atmosphere: {{ starship.max_atmosphering_speed }} km/hr
-    </div>
-    <div>
-      Crews: {{ starship.crew }}
-    </div>
-    <div v-if="starship.passengers > 0">
-      Passengers: {{ starship.passengers }} 
-    </div>
-    <div>
-      Cargo Capacity: {{ starship.cargo_capacity }} kg
-    </div>
-    <div>
-      Maximum Length of Time Without Resupplying: {{ starship.consumables }} 
-    </div>
-    <div v-if="this.starship.pilots.length > 0">
-      Pilots:
+    <p class="h1 pl-4 pt-4"> {{ toTitleCase(starship.name) }} </p>
+    <hr color="white">
+    <div class="info">
+      <p> Model: {{ toTitleCase(starship.model) }} </p>
+      <p> Class: {{ toTitleCase(starship.starship_class) }} </p>
+      <p> Manufacturer: {{ starship.manufacturer }} </p>
+      <p> Cost: {{ starship.cost_in_credits }} Galactic Credits</p>
+      <p> Hyperdrive Rating: {{ starship.hyperdrive_rating }} </p>
+      <p> Maximum Number of Megalights This Starship Can Travel In A Standard Hour: {{ starship.MGLT }} </p>
+      <p> Length: {{ starship.length }} </p>
+      <p> Maximum Speed In The Atmosphere: {{ starship.max_atmosphering_speed }} km/hr </p>
+      <p> Crews: {{ starship.crew }} </p>
+      <p v-if="starship.passengers > 0"> Passengers: {{ starship.passengers }} </p>
+      <p> Cargo Capacity: {{ starship.cargo_capacity }} kg </p>
+      <p> Maximum Length of Time Without Resupplying: {{ starship.consumables }} </p>
+      <p class="h4 py-2" v-if="this.starship.pilots.length > 0"> Pilots </p>
       <RouterLink
         class="link-item"
         :to="{ name: 'person', params: { id: pilot.url.replace(/[^0-9]/g,'') } }"
         v-for="pilot of this.starship.pilots"
         :key="pilot.id"
         >{{ pilot.name }}</RouterLink>
-    </div>
-    <div>
-      Films:
+      <p class="h4 pt-3 pb-2"> Films </p>
       <RouterLink
         class="link-item"
         :to="{ name: 'film', params: { id: film.url.replace(/[^0-9]/g,'') } }"
         v-for="film of this.starship.films"
         :key="film.id"
         >{{ film.title }}</RouterLink>
-    </div> 
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .starship {
-  background-color: #fff;
-  div {
+  background-color: #212529;
+  color: #FFE300;
+  .info {
     font-size: 1rem;
-    line-height: 2rem;
-    padding: 10px 30px;
-  }
-  .heading {
-    font-size: 2rem;
+    padding: 1rem 2rem;
   }
 }
 .link-item {
-  color: black;
+  color: #FFE300;
   padding: 5px 10px;
   margin-left: 20px;
   display: list-item;
+}
+.loading {
+  color: #FFE300;
 }
 </style>

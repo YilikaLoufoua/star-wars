@@ -5,7 +5,7 @@ export default {
   data() {
     return {
       loading: false,
-      person: {},
+      person: {}
     };
   },
   created() {
@@ -21,73 +21,72 @@ export default {
       this.person.vehicles = await api.fetchList(this.person.vehicles);
       this.loading = false;
     },
-  },
+    capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+  }
 };
 </script>
 
 <template>
   <div v-if="loading" class="loading">Loading...</div>
   <div v-if="!loading" class="person">
-    <div class="heading">
-    {{ person.name }}
-    </div>
-    <div> Birth Year: {{ person.birth_year}} </div> 
-    <div> Gender: {{ person.gender }} </div> 
-    <div v-if="this.person.height > 0"> Height: {{ person.height }} cm </div> 
-    <div v-else> Height: Unknown </div> 
-    <div v-if="this.person.mass > 0"> Mass: {{ person.mass }} kg </div> 
-    <div v-else> Mass: Unknown </div> 
-    <div> Eye Color: {{ person.eye_color}} </div> 
-    <div>mSkin Color: {{ person.skin_color}} </div> 
-    <div> Films:
-      <RouterLink
-        class="link-item"
-        :to="{ name: 'film', params: { id: film.url.replace(/[^0-9]/g,'') } }"
-        v-for="film of this.person.films"
-        :key="film.id"
-        >{{ film.title }}</RouterLink>
-    </div> 
-    <div> Home World:
+    <p class="h1 pl-4 pt-4"> {{ person.name }} </p>
+    <hr color="white">
+    <div class="info">
+      <p> Birth Year: {{ person.birth_year}} </p> 
+      <p> Gender: {{ capitalizeFirstLetter(person.gender) }} </p> 
+      <p> Height: {{ capitalizeFirstLetter(person.height) }} cm </p> 
+      <p> Mass: {{ capitalizeFirstLetter(person.mass) }} kg </p> 
+      <p> Eye Color: {{ capitalizeFirstLetter(person.eye_color)}} </p> 
+      <p> Skin Color: {{ capitalizeFirstLetter(person.skin_color)}} </p> 
+      <p class="h4 py-2"> Homeworld </p>
       <RouterLink
         class="link-item"
         :to="{ name: 'planet', params: { id: this.person.homeworld.url.replace(/[^0-9]/g,'') } }"
         >{{ this.person.homeworld.name }}</RouterLink>
-    </div> 
-    <div v-if="this.person.starships.length > 0"> Star Ships:
+      <p class="h4 pt-3 pb-2" v-if="this.person.starships.length > 0"> Star Ships </p> 
       <RouterLink
         class="link-item"
         :to="{ name: 'starship', params: { id: starship.url.replace(/[^0-9]/g,'') } }"
         v-for="starship of this.person.starships"
         :key="starship.id"
         >{{ starship.name }}</RouterLink>
-    </div> 
-    <div v-if="this.person.vehicles.length > 0"> Vehicles:
+      <p class="h4 pt-3 pb-2" v-if="this.person.vehicles.length > 0"> Vehicles </p>
       <RouterLink
         class="link-item"
         :to="{ name: 'vehicle', params: { id: vehicle.url.replace(/[^0-9]/g,'') } }"
         v-for="vehicle of this.person.vehicles"
         :key="vehicle.id"
         >{{ vehicle.name }}</RouterLink>
-    </div> 
+      <p class="h4 pt-3 pb-2"> Films </p>
+      <RouterLink
+        class="link-item"
+        :to="{ name: 'film', params: { id: film.url.replace(/[^0-9]/g,'') } }"
+        v-for="film of this.person.films"
+        :key="film.id"
+        >{{ film.title }}</RouterLink>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .person {
-  background-color: #fff;
-  div {
+  background-color: #212529;
+  color: #FFE300;
+  .info {
     font-size: 1rem;
-    line-height: 2rem;
-    padding: 10px 30px;
-  }
-  .heading {
-    font-size: 2rem;
+    padding: 1rem 2rem;
   }
 }
 .link-item {
-  color: black;
+  color: #FFE300;
   padding: 5px 10px;
   margin-left: 20px;
   display: list-item;
 }
+.loading {
+  color: #FFE300;
+}
 </style>
+

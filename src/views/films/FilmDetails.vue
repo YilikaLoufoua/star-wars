@@ -29,60 +29,44 @@ export default {
 <template>
   <div v-if="loading" class="loading">Loading...</div>
   <div v-if="!loading" class="film">
-    <div class="heading">
-    Star Wars: Episode {{ film.episode_id }} <br>
-    {{ film.title }}
-    </div>
-    <div>
-      Opening Crawl: {{ film.opening_crawl }}
-    </div>
-    <div>
-      Release Date: {{ film.release_date }}
-    </div>
-    <div>
-      Director: {{ film.director }}
-    </div>
-    <div>
-      Producer(s): {{ film.producer }}
-    </div>
-    <div>
-      Characters:
+    <p class="h4 pl-4 pt-4"> Star Wars: Episode {{ film.episode_id }} </p>
+    <p class="h1 pl-4"> {{ film.title }} </p>
+    <div class="info">
+      <p> Release Date: {{ film.release_date }} </p>
+      <p> Director: {{ film.director }} </p>
+      <p> Producer(s): {{ film.producer }} </p>
+      <p class="h4 pt-2"> Opening Crawl </p>
+      <hr color="white">
+      <p> {{ film.opening_crawl }} </p>
+      <p class="h4 py-2"> Characters </p>
       <RouterLink
         class="link-item"
         :to="{ name: 'person', params: { id: character.url.replace(/[^0-9]/g,'') } }"
         v-for="character of this.film.characters"
         :key="character.id"
         >{{ character.name }}</RouterLink>
-    </div>
-    <div>
-      Planets:
+      <p class="h4 py-2"> Planets </p>
       <RouterLink
         class="link-item"
         :to="{ name: 'planet', params: { id: planet.url.replace(/[^0-9]/g,'') } }"
         v-for="planet of this.film.planets"
         :key="planet.id"
         >{{ planet.name }}</RouterLink>
-    </div>
-    <div>
-      Star Ships:
+      <p class="h4 py-2"> Star Ships </p>
       <RouterLink
         class="link-item"
         :to="{ name: 'starship', params: { id: starship.url.replace(/[^0-9]/g,'') } }"
         v-for="starship of this.film.starships"
         :key="starship.id"
         >{{ starship.name }}</RouterLink>
-    </div> 
-    <div>
-      Species:
+      <p class="h4 py-2"> Species </p>
       <RouterLink
         class="link-item"
         :to="{ name: 'specie', params: { id: species.url.replace(/[^0-9]/g,'') } }"
         v-for="species of this.film.specieslist"
         :key="species.id"
         >{{ species.name }}</RouterLink>
-    </div> 
-    <div>
-      Vehicles:
+      <p class="h4 py-2"> Vehicles </p>
       <RouterLink
         class="link-item"
         :to="{ name: 'vehicle', params: { id: vehicle.url.replace(/[^0-9]/g,'') } }"
@@ -95,21 +79,20 @@ export default {
 
 <style lang="scss" scoped>
 .film {
-  background-color: #fff;
-  div {
+  background-color: #212529;
+  color: #FFE300;
+  .info {
     font-size: 1rem;
-    line-height: 2rem;
-    padding: 10px;
-  }
-  .heading {
-    font-size: 2rem;
-    line-height: 2.5rem;
+    padding: 1rem 1.5rem;
   }
 }
 .link-item {
-  color: black;
+  color: #FFE300;
   padding: 5px 10px;
   margin-left: 20px;
   display: list-item;
+}
+.loading {
+  color: #FFE300;
 }
 </style>
