@@ -4,6 +4,9 @@ A simple Star Wars Wiki built based on [SWAPI](https://swapi.dev/), the Star War
 
 ![SWIKI](demo.png)
 
+## Live Demo on GitHub Pages
+[Click Here](https://yilikaloufoua.github.io/star-wars-wiki/)
+
 ## Project Setup
 
 ```
