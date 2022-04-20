@@ -1,3 +1,27 @@
-json-server --watch --port 3002 --host 127.0.0.1 src/db.js
+# SWIKI
 
-In this project, we demo layout, nested routes, programmatic navigation, and router-link-exact-active.
+A simple Star Wars Wiki built based on [SWAPI](https://swapi.dev/), the Star Wars API. The web app was developed using Vite, Vue, Sass, and Bootstrap.
+
+![SWIKI](demo.png)
+
+## Project Setup
+
+```
+# clone repository
+git clone https://github.com/YilikaLoufoua/star-wars-wiki
+
+# open project folder
+cd star-wars-wiki
+
+# install dependencies
+npm install
+
+# start local server 
+npm run dev
+
+# go to http://localhost:3000/star-wars-wiki/
+```
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE.md file for details
